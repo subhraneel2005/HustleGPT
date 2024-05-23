@@ -7,10 +7,11 @@ export default function Home() {
 
   const [userPrompt, setUserPrompt] = useState("");
   const[gptResponse, setGptResponse] = useState("");
+  const [allRes, setAllRes] = useState([]);
 
   const apiKey = "AIzaSyAsriAzh5QnLVB1RB0yNexDergLGVEKQIw";
 
-  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+  const genAI = new GoogleGenerativeAI(apiKey);
 
   const startGPT = async() => {
     try {
@@ -22,6 +23,8 @@ export default function Home() {
       const response = await result.response
       const text = response.text()
       setGptResponse(text);
+      allRes.push(gptResponse)
+      setAllRes(allRes)
       setUserPrompt("");
       
     } catch (error) {
